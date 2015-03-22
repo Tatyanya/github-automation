@@ -38,6 +38,7 @@ public class LoginPage extends AbstractPage {
         inputPassword.sendKeys(password);
         buttonSubmit.click();
         logger.info("Login performed");
+        driver.navigate().refresh();
     }
 
     public String getLoggedInUserName() {

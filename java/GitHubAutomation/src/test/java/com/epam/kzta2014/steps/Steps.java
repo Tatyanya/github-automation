@@ -6,6 +6,7 @@ import com.epam.kzta2014.pages.MainPage;
 import com.epam.kzta2014.pages.SettingsProfilePage;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
@@ -18,8 +19,10 @@ public class Steps {
     private WebDriver driver;
 
     public void initBrowser() {
-        //driver = new FirefoxDriver();
-        driver = new HtmlUnitDriver();
+        driver = new FirefoxDriver();
+        //driver = new HtmlUnitDriver();
+        System.setProperty("webdriver.chrome.driver", "c:\\soft\\chromedriver.exe");
+        //driver = new ChromeDriver();
         driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         LOGGER.info("Browser started");
@@ -55,7 +58,14 @@ public class Steps {
 
     public String getUserProfileName() {
         SettingsProfilePage profilePage = new SettingsProfilePage(driver);
+        profilePage.openPage();
         return profilePage.getInputName();
+    }
+
+    public String getLinkEmailSettingText() {
+        SettingsProfilePage settingsProfilePage = new SettingsProfilePage(driver);
+        settingsProfilePage.openPage();
+        return settingsProfilePage.getLinkEmailSettingText();
     }
 
 }

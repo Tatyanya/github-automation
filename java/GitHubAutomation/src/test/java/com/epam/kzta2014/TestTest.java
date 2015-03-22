@@ -30,4 +30,10 @@ public class TestTest {
         Assert.assertEquals("tatyana", steps.getUserProfileName());
     }
 
+    @Test
+    public void testGetLinkEmailSettingText() {
+        steps.loginGithub("tatyanya", "Aaa159263");
+        Assert.assertEquals(steps.getLinkEmailSettingText(), "personal email settings");
+    }
+
 }

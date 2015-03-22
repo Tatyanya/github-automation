@@ -83,5 +83,8 @@ public class SettingsProfilePage extends AbstractPage
         return inputName.getText();
     }
 
-}
+    public String getLinkEmailSettingText() {
+        return linkEmailSetting.getText();
+    }
 
+}
