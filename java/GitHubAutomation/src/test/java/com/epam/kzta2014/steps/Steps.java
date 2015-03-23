@@ -7,8 +7,6 @@ import com.epam.kzta2014.pages.SettingsProfilePage;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
 import java.util.concurrent.TimeUnit;
 
@@ -19,10 +17,10 @@ public class Steps {
     private WebDriver driver;
 
     public void initBrowser() {
-        driver = new FirefoxDriver();
+        //driver = new FirefoxDriver();
         //driver = new HtmlUnitDriver();
-        System.setProperty("webdriver.chrome.driver", "c:\\soft\\chromedriver.exe");
-        //driver = new ChromeDriver();
+       //System.setProperty("webdriver.chrome.driver", "c:\\soft\\chromedriver.exe");
+        driver = new ChromeDriver();
         driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         LOGGER.info("Browser started");
@@ -56,16 +54,29 @@ public class Steps {
         return createNewRepositoryPage.isCurrentRepositoryEmpty();
     }
 
-    public String getUserProfileName() {
+
+    public boolean getUserProfileName(String name) {
         SettingsProfilePage profilePage = new SettingsProfilePage(driver);
         profilePage.openPage();
-        return profilePage.getInputName();
+        String expectedName = profilePage.getInputName(name);
+        return expectedName.equals(profilePage.getProfileName());
+
     }
 
-    public String getLinkEmailSettingText() {
-        SettingsProfilePage settingsProfilePage = new SettingsProfilePage(driver);
-        settingsProfilePage.openPage();
-        return settingsProfilePage.getLinkEmailSettingText();
+
+    public String getUpdateProfile() {
+        SettingsProfilePage profilePage = new SettingsProfilePage(driver);
+        profilePage.openPage();
+        SettingsProfilePage SettingsProfilePage = new SettingsProfilePage(driver);
+        return SettingsProfilePage.updateSettingProfile();
+
     }
+
+
+    // public String getLinkEmailSettingText() {
+        //SettingsProfilePage settingsProfilePage = new SettingsProfilePage(driver);
+       // settingsProfilePage.openPage();
+       // return settingsProfilePage.getLinkEmailSettingText();
+    //}
 
 }

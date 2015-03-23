@@ -1,5 +1,6 @@
 package com.epam.kzta2014.pages;
 
+import com.epam.kzta2014.utils.Utils;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -39,7 +40,7 @@ public class SettingsProfilePage extends AbstractPage
     @FindBy(xpath = "//button[@type='submit']")
     private WebElement buttonUpdateProfile;
 
-    @FindBy(className = "flash flash-notice")
+    @FindBy(className = "flash-notice")
     private WebElement linkGoodUpdate;
 
     @FindBy(xpath = "//a[text()='Join the GitHub Developer Program']")
@@ -66,25 +67,28 @@ public class SettingsProfilePage extends AbstractPage
         logger.info("Profile page opened");
     }
 
-    public void updateSettingProfile(String name, String profileLink, String country, String location) {
-        inputName.sendKeys(name);
-        inputProfileLink.sendKeys(profileLink);
-        inputCountry.sendKeys(country);
-        inputLocation.sendKeys(location);
+    public String updateSettingProfile() {
         buttonUpdateProfile.click();
         logger.info("Profile updated");
+       return  linkGoodUpdate.getText();
     }
 
-    public String getUpdatedProfile() {
-        return linkGoodUpdate.getText();
+
+    public String getInputName(String name) {
+        String profileName = name + Utils.getRandomString(6);
+        inputName.clear();
+        inputName.sendKeys(profileName);
+        buttonUpdateProfile.click();
+        return profileName;
     }
 
-    public String getInputName() {
-        return inputName.getText();
+    public String getProfileName() {
+        return inputName.getAttribute("value");
     }
 
-    public String getLinkEmailSettingText() {
-        return linkEmailSetting.getText();
-    }
+
+ //   public String getLinkEmailSettingText() {
+    //   return linkEmailSetting.getText();
+    //}
 
 }

@@ -9,9 +9,11 @@ import org.testng.annotations.Test;
 /**
  * Created by Tatyana_Korobitsina on 3/22/2015.
  */
-public class TestTest {
-
+public class ProfileInfoTest {
     private Steps steps;
+    private final String USERNAME = "tatyanya";
+    private final String PASSWORD = "Aaa159263";
+
 
     @BeforeTest
     public void globalSetUp() {
@@ -25,15 +27,9 @@ public class TestTest {
     }
 
     @Test
-    public void testOne() {
-        steps.loginGithub("tatyanya", "Aaa159263");
-        Assert.assertEquals("tatyana", steps.getUserProfileName());
-    }
-
-    @Test
-    public void testGetLinkEmailSettingText() {
-        steps.loginGithub("tatyanya", "Aaa159263");
-        Assert.assertEquals(steps.getLinkEmailSettingText(), "personal email settings");
+    public void checkProfileName() {
+        steps.loginGithub(USERNAME, PASSWORD);
+        Assert.assertTrue(steps.getUserProfileName("tatyana-name"));
     }
 
 }
